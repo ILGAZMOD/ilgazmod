@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import check from './check.svg';
 import dropdownCaret from './dropdown-caret.svg';
 import {MenuItem, Submenu} from '../menu/menu.jsx';
-import {ACCENT_BLUE, ACCENT_MAP, ACCENT_PURPLE, ACCENT_RED, ACCENT_RAINBOW, Theme} from '../../lib/themes/index.js';
+// ACCENT_RED buradan kaldırıldı
+import {ACCENT_BLUE, ACCENT_MAP, ACCENT_PURPLE, ACCENT_RAINBOW, Theme} from '../../lib/themes/index.js';
 import {openAccentMenu, accentMenuOpen, closeSettingsMenu} from '../../reducers/menus.js';
 import {setTheme} from '../../reducers/theme.js';
 import {persistTheme} from '../../lib/themes/themePersistance.js';
@@ -15,11 +16,7 @@ import rainbowIcon from './tw-accent-rainbow.svg';
 import styles from './settings-menu.css';
 
 const options = defineMessages({
-    [ACCENT_RED]: {
-        defaultMessage: 'Red',
-        description: 'Name of the red color scheme, used by TurboWarp by default.',
-        id: 'tw.accent.red'
-    },
+    // ACCENT_RED seçeneği buradan silindi
     [ACCENT_PURPLE]: {
         defaultMessage: 'Purple',
         description: 'Name of the purple color scheme. Matches modern Scratch.',
@@ -47,16 +44,15 @@ const ColorIcon = props => (
             className={styles.accentIconOuter}
             src={icons[props.id]}
             draggable={false}
-            // Image is decorative
             alt=""
         />
     ) : (
         <div
             className={styles.accentIconOuter}
             style={{
-                // menu-bar-background is var(...), don't want to evaluate with the current values
-                backgroundColor: ACCENT_MAP[props.id].guiColors['looks-secondary'],
-                backgroundImage: ACCENT_MAP[props.id].guiColors['menu-bar-background-image']
+                // ACCENT_MAP artık kırmızıyı içermediği için props.id kırmızı gelirse hata vermemesi sağlandı
+                backgroundColor: ACCENT_MAP[props.id] ? ACCENT_MAP[props.id].guiColors['looks-secondary'] : '#4c97ff',
+                backgroundImage: ACCENT_MAP[props.id] ? ACCENT_MAP[props.id].guiColors['menu-bar-background-image'] : 'none'
             }}
         />
     )
@@ -103,8 +99,8 @@ const AccentThemeMenu = ({
             <ColorIcon id={theme.accent} />
             <span className={styles.submenuLabel}>
                 <FormattedMessage
-                    defaultMessage="Accent"
-                    description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
+                    defaultMessage="Aksan" // "Accent" yazısını Türkçeleştirdik
+                    description="Label for menu to choose accent color"
                     id="tw.menuBar.accent"
                 />
             </span>
@@ -120,7 +116,6 @@ const AccentThemeMenu = ({
                     key={item}
                     id={item}
                     isSelected={theme.accent === item}
-                    // eslint-disable-next-line react/jsx-no-bind
                     onClick={() => onChangeTheme(theme.set('accent', item))}
                 />
             ))}
