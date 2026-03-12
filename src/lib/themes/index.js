@@ -2,7 +2,7 @@ import defaultsDeep from 'lodash.defaultsdeep';
 
 import * as accentPurple from './accent/purple';
 import * as accentBlue from './accent/blue';
-import * as accentRed from './accent/red';
+// RED importu kaldırıldı
 import * as accentRainbow from './accent/rainbow';
 
 import * as guiLight from './gui/light';
@@ -14,15 +14,17 @@ import * as blocksDark from './blocks/dark';
 
 const ACCENT_PURPLE = 'purple';
 const ACCENT_BLUE = 'blue';
-const ACCENT_RED = 'red';
 const ACCENT_RAINBOW = 'rainbow';
+
+// ACCENT_MAP içinden kırmızının referansı tamamen silindi
 const ACCENT_MAP = {
     [ACCENT_PURPLE]: accentPurple,
     [ACCENT_BLUE]: accentBlue,
-    [ACCENT_RED]: accentRed,
     [ACCENT_RAINBOW]: accentRainbow
 };
-const ACCENT_DEFAULT = ACCENT_RED;
+
+// Varsayılan aksanı mavi yaparak ILGAZ MOD'a uygun hale getirdik
+const ACCENT_DEFAULT = ACCENT_BLUE;
 
 const GUI_LIGHT = 'light';
 const GUI_DARK = 'dark';
@@ -61,7 +63,6 @@ const BLOCKS_MAP = {
         useForStage: false
     },
     [BLOCKS_CUSTOM]: {
-        // to be filled by editor-theme3 addon
         blocksMediaFolder: 'blocks-media/default',
         colors: blocksThree.blockColors,
         extensions: {},
@@ -74,14 +75,10 @@ let themeObjectsCreated = 0;
 
 class Theme {
     constructor (accent, gui, blocks) {
-        // do not modify these directly
-        /** @readonly */
         this.id = ++themeObjectsCreated;
-        /** @readonly */
+        // Eğer bir şekilde kırmızı çağrılırsa direkt ACCENT_DEFAULT (Mavi) devreye girecek
         this.accent = Object.prototype.hasOwnProperty.call(ACCENT_MAP, accent) ? accent : ACCENT_DEFAULT;
-        /** @readonly */
         this.gui = Object.prototype.hasOwnProperty.call(GUI_MAP, gui) ? gui : GUI_DEFAULT;
-        /** @readonly */
         this.blocks = Object.prototype.hasOwnProperty.call(BLOCKS_MAP, blocks) ? blocks : BLOCKS_DEFAULT;
     }
 
@@ -146,7 +143,6 @@ export {
     Theme,
     defaultBlockColors,
 
-    ACCENT_RED,
     ACCENT_PURPLE,
     ACCENT_BLUE,
     ACCENT_RAINBOW,
