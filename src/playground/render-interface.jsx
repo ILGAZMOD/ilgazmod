@@ -131,6 +131,10 @@ const Footer = () => (
                         {/* Do not translate */}
                         {'TurboWarp Desktop'}
                     </a>
+                    <a href="https://launcherilgazmod.vercel.app">
+                        {/* Do not translate */}
+                        {'ILGAZMOD launcher'}
+                    </a>
                     <a href="https://packager.turbowarp.org/">
                         {/* Do not translate */}
                         {'TurboWarp Packager'}
